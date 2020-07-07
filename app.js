@@ -18,11 +18,13 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
+////SCHEMA////
 const postSchema = {
     title: String,
     entry: String
 }
 
+////MONGOOSE MODEL////
 const Post = mongoose.model("Post", postSchema);
 
 ///// home route //////
