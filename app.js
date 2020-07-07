@@ -27,10 +27,13 @@ const Post = mongoose.model("Post", postSchema);
 
 ///// home route //////
 app.get("/", function(req, res) {
-  res.render("home", {
+
+Post.find({}, function(err, posts){
+   res.render("home", {
     startingContent: homeStartingContent, 
     newPost: posts
   });
+})
 }); 
 
 app.get("/about", function(req, res) {
@@ -48,14 +51,16 @@ app.get("/compose", function(req, res) {
 
 app.post("/compose", function(req, res) {
 
-  const post =  new Post ({
+  const post = new Post ({
     title: req.body.entryTitle,
     entry: req.body.entryBody
   });
   
-  post.save();
-
-  res.redirect("/");
+  post.save(function(err){
+    if(!err) {
+       res.redirect("/");
+    }
+  });
 });
 
 /////routing parameter////
