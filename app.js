@@ -20,6 +20,13 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
+const postSchema = {
+    title: String,
+    entry: String
+}
+
+const Post = mongoose.model("Post", postSchema);
+
 ///// home route //////
 app.get("/", function(req, res) {
   res.render("home", {
