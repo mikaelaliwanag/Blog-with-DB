@@ -61,25 +61,20 @@ app.post("/compose", function(req, res) {
        res.redirect("/");
     }
   });
+
 });
 
 /////routing parameter////
-app.get('/posts/:postName', function(req, res) {
+app.get('/posts/:postId', function(req, res) {
 
-  const requestedTitle = _.lowerCase(req.params.postName);
+  const requestedPostId = req.params.postId;
 
-  posts.forEach(function(post) {
-    const storedTitle = _.lowerCase(post.title);
-
-    if(requestedTitle === storedTitle) {
-       res.render("post", {
-         postTitle: post.title, 
-         postEntry: post.entry
-        });
-    }
-
+  Post.findOne({_id: requestedPostId}, function(err, post) {
+      res.render("post", {
+        postTitle: post.title, 
+        postEntry: post.entry
+      });
   });
-
 });
 
 
